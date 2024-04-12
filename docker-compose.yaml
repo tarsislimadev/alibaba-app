@@ -1,11 +1,13 @@
 version: '3'
 
 services:
+
   api:
     image: 'tmvdl/projects:alibaba-app'
     hostname: api
     build: './src/api'
     volumes:
       - './src/api:/app'
+      - './data:/data'
     ports:
       - '8080:80'
