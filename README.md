@@ -6,7 +6,7 @@ An app to deploy in Alibaba Cloud.
 
 ## social & donate
 
-[Donate](https://link.mercadopago.com.br/brtmvdl) - [Telegram](https://t.me/+KRmg5MlqgMk0MTg5) - [Discord](https://discord.gg/FpxetYYp)
+[Donate](https://link.mercadopago.com.br/brtmvdl) - [Telegram](https://t.me/+KRmg5MlqgMk0MTg5) - [Discord](https://discord.gg/J5H6N3cc2m)
 
 ## license
 
