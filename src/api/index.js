@@ -1,21 +1,31 @@
-import { Server } from '@brtmvdl/backend'
+const express = require('express')
+const { createServer } = require('http')
+const { Server } = require('socket.io')
+const { Database } = require('@brtmvdl/database')
 
-import { Database } from '@brtmvdl/database'
+const db = new Database({ type: 'fs', config: '/data' })
+const PORT = 80
 
-import { PORT } from './config.js'
+const app = express()
+const server = createServer(app)
+const io = new Server(server, { cors: '*' })
 
-const database = new Database({ type: 'fs', config: '/data' })
+const save = (data = {}, datetime = Date.now()) => db.in('access').new().writeMany({ datetime, ...data })
 
-const server = new Server()
+app.use(express.static('public'))
 
-server.post('/access', ({ body, datetime = Date.now() }, res) => {
-  const data = ({ datetime, ...JSON.parse(body) })
+io.on('connection', (socket) => {
+  const datetime = Date.now()
+  console.log('connection', { datetime })
+  db.in('connection').new().writeMany({ datetime })
 
-  console.log(data)
-
-  database.in('access').new().writeMany(data)
-
-  return res.setJSON(data)
+  socket.on('message', (message) => {
+    const datetime = Date.now()
+    console.log('message', { datetime, message })
+    db.in('message').new().writeMany({ datetime, message })
+  })
 })
+
+io.on('message', (data) => console.info(data))
 
 server.listen(PORT)
