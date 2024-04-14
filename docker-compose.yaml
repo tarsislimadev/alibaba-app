@@ -10,4 +10,4 @@ services:
       - './src/api:/app'
       - './data:/data'
     ports:
-      - '8080:80'
+      - '8000:80'
